@@ -1,0 +1,31 @@
+.article-block {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    
+  }
+  
+  .article-block img {
+    max-width: 100%;
+    margin-right: 20px;
+    border-radius: 3%;
+    
+  }
+  
+  .article-block .description {
+    flex-grow: 1;
+    
+  }
+  
+  .article-block h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+  }
+  
+  .article-block p h6 {
+    margin-bottom: 10px;
+  }
+  
+  
+  
+

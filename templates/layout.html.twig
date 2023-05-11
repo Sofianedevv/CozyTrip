@@ -1,0 +1,111 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+<nav class="navbar navbar-expand-lg bg-body-danger">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{path('app_home')}}">CozyTrip</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{path('app_home')}}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{path('app_hebergements')}}">Les Hébergements</a>
+        </li>
+
+          {% if not is_granted('IS_AUTHENTICATED_FULLY') %} {# si aucun utilisateur n'est authentifié #}
+
+        <li class="nav-item">
+             <a class="nav-link" href="{{path('app_login')}}">Connexion</a>
+        </li>
+         <li class="nav-item">
+                 <a class="nav-link" href="{{path('app_register')}}">Inscription</a>
+        </li>
+        {% else %}
+          
+           <li class="nav-item">
+                 <a class="nav-link" href="{{path('app_logout')}}">Déconnexion</a>
+           </li> 
+           
+           <li class="nav-item">
+                 <a class="nav-link" href="{{path('app_mes_reservations')}}">Mes réservation </a>
+           </li>
+        {% endif %}
+
+
+         {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')  %} 
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{path('app_hebergement_add')}}">Ajout hebergement</a></li>
+            <li><a class="dropdown-item" href="{{path('app_categorie_add')}}">Ajout categorie</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        {% endif %}
+        <li class="nav-item">
+          <a class="nav-link disabled">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+					
+				<h6>Boujour {{app.user.nom}} !</h6>
+
+					{% else %}
+				<h6>Boujour !</h6>
+
+						
+
+					{% endif %}
+</nav>
+
+
+<main >
+
+
+{% for message in app.flashes('error') %}
+		<div class ="alert alert-danger text-danger">
+		{{message}}
+		</div>
+
+		{% endfor %}
+
+		{% for message in app.flashes('success') %}
+		<div class ="alert alert-success text-center ">
+		{{message}}
+		</div>
+
+		{% endfor %}
+
+	{% block content %}
+  
+  
+  {% endblock %}
+
+	{% block final_js %}
+		{# insertion des script propre à chaque page #}
+	{% endblock %}
+</main>
+
+<footer class="fixed-bottom bg-dark">
+	<div class="text-center text-white">
+		<p>&copy; tous droits reservés, Ma Boutique</p>
+	</div>
+</footer>
+
+{% endblock %}
+

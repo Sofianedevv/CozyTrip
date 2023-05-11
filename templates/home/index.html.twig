@@ -1,0 +1,81 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+<div class="c">
+        <p class="txt t1" > - NEW YORK - PARIS - TOKYO - LONDRES - BUENOS AIRES - DAKAR - LISBONNE - KUALA LAMPUR - PEKIN - LA HAVANE - BERLIN - ISTANBUL - CANCUN - SEOUL - LE CAIRE - NAIROBI - BARCELONE - LIMA - BOGOTA - BANGKOK - JAKARTA - PETRA - MOSCOU - DACCA - LAGOS&nbsp; </p>
+        <p class="txt t2" > - NEW YORK - PARIS - TOKYO - LONDRES - BUENOS AIRES - DAKAR - LISBONNE - KUALA LAMPUR - PEKIN - LA HAVANE - BERLIN - ISTANBUL - CANCUN - SEOUL - LE CAIRE - NAIROBI - BARCELONE - LIMA - BOGOTA - BANGKOK - JAKARTA - PETRA - MOSCOU - DACCA - LAGOS&nbsp; </p>
+</div>
+
+<h1 class="text-center mt-5">Nos logements les mieux notés</h1>
+
+
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+{% for hebergement in hebergements %}
+    <div class="carousel-item {% if loop.index == 1 %} active {% endif %}">
+    {% for photo in hebergement.photos %}  
+      {% if loop.first %}
+        <img src="{{asset('photos/hebergement/' ~ photo.nom )}}" class="d-block w-100" alt="..." id ="carousselimg">
+      {% endif %}
+    {% endfor %}
+      <div class="carousel-caption d-none d-md-block">
+        <h5>{{hebergement.titre}}</h5>
+        <p>{{hebergement.description}}</p>
+        <p>{{hebergement.adresse}}</p>
+
+      </div>
+    </div>
+  
+{% endfor %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
+
+<div class ="d-flex justify-content-center mt-5">
+
+{% for categorie in categories %}
+<div class="card m-5 " style="width: 18rem;">
+    <img src="{{asset('photos/hebergement/' ~ categorie.photocategorie )}}" class="card-img-top" alt="...">
+    <div class="card-body">  
+        <a class="text-decoration-none" href="{{path('app_hebergement_categorie', {slug: categorie.slug})}}"> 
+        <li class="list-group-item btn btn-primary text-center">{{categorie.nom}}</li>
+        </a>
+  </div>
+</div>
+			{% endfor %}
+
+ </div>
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+		
+{% endblock %}
